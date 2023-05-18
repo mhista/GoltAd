@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  
+
+    <!-- Breadcrumb Begin -->
+    <div class="breadcrumb-option">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__links">
+                        <a href="{% url 'index' %}"><i class="fa fa-home"></i> Home</a>
+                        <a href="{% url 'golt:categories' %}">{{ad.ad_type}}</a>
+                        <span>{{ad.company.company_name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb End -->
+
+    <!-- Anime Section Begin -->
+    <section class="anime-details spad">
+        <div class="container">
+            <div class="anime__details__content">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="anime__details__pic set-bg" data-setbg={{ad.photo.url}}  >
+                            <div class="comment"><i class="fa fa-comments"></i> 11</div>
+                            <div class="view"><i class="fa fa-eye"></i> {{ad.get_ad_count}}</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="anime__details__text">
+                            <div class="anime__details__title">
+                                <h3>{{ad.company.company_name}}</h3>
+                                <span>{{ad.name}}</span>
+                            </div>
+                            <p>{{ad.ad_description}}</p>
+                            <div class="anime__details__widget">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul>
+                                            <li><span>Category:</span>{{ad.ad_type}}</li>
+                                            <li><span>Date added:</span> date</li>
+                                            <li><span>Expires:</span> Oct 02, 2019 to ?</li>
+                                            <!-- <li><span>Status:</span>onboard</li> -->
+                                            <li><span>Audience</span>Kids, Adult</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <ul>
+                                            <li><span>Positivity:</span>1354 </li>
+                                            <li><span>Negativity:</span> 1562</li>
+                                            <li><span>Rating:</span>18+</li>
+                                            <li><span>Views:</span>{{ad.get_ad_count}} Users</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="anime__details__btn">
+                                
+                                {% if request.user.userprofile == ad.company.userprofile %}
+                                <a href="{% url 'golt:adcheck' user.pk ad.pk %}" target="_blank" class="watch-btn"><span>Check Total Connection</span> <i
+                                    class="fa fa-angle-right"></i></a>
+                                
+                                    {% elif request.user.userprofile in ad.users.all %}
+                                    <a href="" class="follow-btn"><i class="fa fa-share"></i> share</a>
+                                    <a target="_blank" class="watch-btn"><span>Visited</span> <i
+                                        class="fa fa-angle-right"></i></a>
+                                    {% else %}
+                                <a href="" class="follow-btn"><i class="fa fa-share"></i> share</a>
+                                <a href="{% url 'golt:adcheck' user.pk ad.pk %}"class="watch-btn" id="ad-btn"><span>Visit</span> <i
+                                    class="fa fa-angle-right"></i></a></a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-md-8">
+                        <div class="anime__details__review">
+                            <div class="section-title">
+                                <h5>Reviews</h5>
+                            </div>
+                            <div class="anime__review__item">
+                                <div class="anime__review__item__pic">
+                                    <img src={%  static "img/anime/review-1.jpg" %} alt="">
+                                </div>
+                                <div class="anime__review__item__text">
+                                    <h6>Chris Curry - <span>1 Hour ago</span></h6>
+                                    <p>whachikan Just noticed that someone categorized this as belonging to the genre
+                                    "demons" LOL</p>
+                                </div>
+                            </div>
+                          
+                        </div>
+                        <div class="anime__details__form">
+                            <div class="section-title">
+                                <h5>Your Comment</h5>
+                            </div>
+                            <form action="#">
+                                <textarea placeholder="Your Comment"></textarea>
+                                <button type="submit"><i class="fa fa-location-arrow"></i> Review</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="anime__details__sidebar">
+                            <div class="section-title">
+                                <h5>Ads from this business</h5>
+                            </div>
+                            <div class="product__sidebar__view__item set-bg" data-setbg={%  static "img/site-img/img44.jpg" %}>
+                                <div class="ep">18 / </div>
+                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                <h5><a href="#">Great things comes uneasy</a></h5>
+                            </div>
+                          
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Anime Section End -->
+{% endblock content %}

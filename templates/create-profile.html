@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+            <div class="card card-warning">
+              <div class="card-header">
+              
+              {% if request.user.profile.has_profile %}
+                <h4>Update Profile</h4>
+                {% else %}
+                <h4>Create Profile</h4>
+
+              {% endif %}
+                
+              </div>
+              <div class="card-body">
+              {% if request.user.profile.has_profile %}
+              <form action="{% url 'golt:update-profile' profile.pk %}" method="post" enctype="multipart/form-data">
+
+              {% else %}
+              <form action="{% url 'golt:create-profile' %}" method="post" enctype="multipart/form-data">
+
+              {% endif %}
+
+
+                  {% csrf_token %}
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label for="fcountry">Country</label>
+                      <input id="fcountry" type="text" class="form-control" name="country" autofocus>
+                    </div>
+                  <div class="form-group col-6">
+                    <label for="state">State</label>
+                    <input id="state" type="text" class="form-control" name="state">
+                    <div class="invalid-feedback">
+                    </div>
+                  </div>
+                </div>
+                  <div class="row">
+                    <div class="form-group col-6">
+                      <label for="zip" class="d-block">Zip</label>
+                      <input id="zip" type="text" class="form-control pwstrength" data-indicator="pwindicator"
+                        name="zip">
+                      <div id="pwindicator" class="pwindicator">
+                        <div class="bar"></div>
+                        <div class="label"></div>
+                      </div>
+                    </div>
+                    <div class="form-group col-6">
+                      <label for="phone" class="d-block">Phone</label>
+                      <input id="phone" type="phone" class="form-control" name="phone">
+                    </div>
+                  </div>
+                  <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Profile Photo</label>
+                    <div class="col-sm-12 col-md-7">
+                        <div id="image-preview" class="image-preview">
+                        <label for="image-upload" id="image-label">Choose File</label>
+                        <input type="file" name="photo" id="image-upload" />
+                        </div>
+                    </div>
+                    </div>
+                  
+                  <div class="form-group">
+                    <div>
+                      <!-- *this site uses user data to gather specific infos -->
+                    </div>
+                    <!-- <div class="custom-control custom-checkbox">
+                      <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+                      <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+                    </div> -->
+                  </div>
+                  
+                  <div class="form-group">
+                  {% if request.user.profile.has_profile %}
+                  <button type="submit" class="btn btn-warning btn-lg btn-block">
+                    Update Profile
+                  </button>
+                  {% else %}
+
+                    <button type="submit" class="btn btn-warning btn-lg btn-block">
+                      Create Profile
+                    </button>
+                  {% endif %}
+
+                  </div>
+                </form>
+              </div>
+              <div class="mb-4 text-muted text-center">
+                Already Registered? <a href="{% url 'account_login' %}">Login</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+{% endblock content %}

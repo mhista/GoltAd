@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="main-content">
+  <section class="section">
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Create Your AD</h4>
+            </div>
+            <div class="card-body">
+                <form action="{% url 'golt:create-ad' %}" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3 strong">Title <small class="pl-3">A nice title will make your ad stand out</small></label>
+                    <div class="col-sm-12 col-md-7">
+                        <input type="text" class="form-control" name="name">
+                    </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3 strong">AD Link <small class="pl-3">Aprovide a link to redirect to</small></label>
+                    <div class="col-sm-12 col-md-7">
+                        <input type="text" class="form-control" name="ad_link">
+                    </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category</label>
+                    <div class="col-sm-12 col-md-7">
+                        <select name="ad_type" id="" class="form-control selectric">
+                        <!-- <option value="" class="">Choose Category</option> -->
+                        {% for cat in category %}
+                            
+                        <option value="{{cat.id}}" class="">
+                            {{cat.name}}
+                        </option>
+                        {% endfor %}
+
+                    </select>
+                    </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Range</label>
+                    <div class="col-sm-12 col-md-7">
+                        
+                        <select name="ad_range" id="" class="form-control selectric">
+                        <!-- <option value="" class="mb-3">Choose Range</option> -->
+                        {% for range in ranges %}
+                        
+                        <option value="{{range.id}}" class="">
+                            {{range.number_of_clicks}} Clicks | ${{range.ad_price}}
+                        </option>
+                        {% endfor %}
+                        </select>
+
+                    </div>
+                    </div>
+                    <div class="form-group row ">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Ad Content</label>
+                    <div class="col-sm-12 col-md-7">
+                        <textarea class="summernote-simple" name="ad_description"></textarea>
+                    </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Product Photo</label>
+                    <div class="col-sm-12 col-md-7">
+                        <div id="image-preview" class="image-preview">
+                        <label for="image-upload" id="image-label">Choose File</label>
+                        <input type="file" name="photo" id="image-upload" />
+                        </div>
+                    </div>
+                    </div>
+                
+                    <div class="form-group row mb-4">
+                    <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                    <div class="col-sm-12 col-md-7">
+                        <button class="btn btn-primary">Create AD</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
